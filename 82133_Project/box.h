@@ -41,6 +41,21 @@ private:
 	bool hasBoxes() {
 		return innerBoxes.getFirstElement() != nullptr;
 	}
+
+	bool isEmpty() {
+		return (!hasSouvenirs() && !hasBoxes());
+	}
+
+	bool hasOnlyOneBox() {
+		if (!hasBoxes())
+			return false;
+		bool hasOnlyOneBox = innerBoxes.getFirstElement()->next == nullptr;
+		return hasOnlyOneBox;
+	}
+
+	bool canBeReplacedWithInnerBox() {
+		return (!hasSouvenirs() && hasOnlyOneBox())
+	}
 };
 
 #endif // !BOX
