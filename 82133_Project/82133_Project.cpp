@@ -2,11 +2,7 @@
 #include <string>
 #include "skip_list.h"
 
-int main()
-{
-	std::cout << "Hello World!\n";
-	//Initiating the cities
-	SkipList<std::string> sl = SkipList<std::string>();
+void initializeCitiesInSkipList(SkipList<std::string>& sl) {
 	sl.insertEnd("Sofia");
 	sl.insertEnd("Pazardzhik");
 	sl.insertEnd("Plovdiv");
@@ -16,52 +12,73 @@ int main()
 	sl.insertEnd("Yambol");
 	sl.insertEnd("Karnobat");
 	sl.insertEnd("Burgas");
-	//sl.printList();
+}
 
-	//1: Setting expresses
+void setExpresses(SkipList<std::string>& sl) {
 	sl.setExpressToNode(sl.getNodeWithValue("Sofia"), sl.getNodeWithValue("Plovdiv"));
 	sl.setExpressToNode(sl.getNodeWithValue("Plovdiv"), sl.getNodeWithValue("NovaZagora"));
 	sl.setExpressToNode(sl.getNodeWithValue("Dimitrovgrad"), sl.getNodeWithValue("NovaZagora"));
 	sl.setExpressToNode(sl.getNodeWithValue("StaraZagora"), sl.getNodeWithValue("Yambol"));
 	sl.setExpressToNode(sl.getNodeWithValue("NovaZagora"), sl.getNodeWithValue("Burgas"));
+}
 
-	//1.1: initiating a list of the cities we want to visit
-	LinkedList<std::string> wantToVisit = LinkedList<std::string>();
+void setExpressesSecondOption(SkipList<std::string>& sl) {
+	sl.setExpressToNode(sl.getNodeWithValue("Sofia"), sl.getNodeWithValue("Dimitrovgrad"));
+	sl.setExpressToNode(sl.getNodeWithValue("Pazardzhik"), sl.getNodeWithValue("Dimitrovgrad"));
+	sl.setExpressToNode(sl.getNodeWithValue("Dimitrovgrad"), sl.getNodeWithValue("NovaZagora"));
+	sl.setExpressToNode(sl.getNodeWithValue("StaraZagora"), sl.getNodeWithValue("Yambol"));
+	sl.setExpressToNode(sl.getNodeWithValue("NovaZagora"), sl.getNodeWithValue("Burgas"));
+}
+
+void initiateCitiesThatMustBeVisited(LinkedList<std::string>& wantToVisit) {
 	wantToVisit.insertEnd("Plovdiv");
 	wantToVisit.insertEnd("StaraZagora");
 	wantToVisit.insertEnd("Yambol");
+}
 
-	////1.2: Initiating a list of the cities we want to visit
-	//LinkedList<std::string> wantToVisit = LinkedList<std::string>();
-	//wantToVisit.insertEnd("Pazardzhik");
-	//wantToVisit.insertEnd("Dimitrovgrad");
-	//wantToVisit.insertEnd("Yambol");
-	////Expected: Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
+void initiateCitiesThatMustBeVisitedSecondOption(LinkedList<std::string>& wantToVisit) {
+	wantToVisit.insertEnd("Pazardzhik");
+	wantToVisit.insertEnd("Dimitrovgrad");
+	wantToVisit.insertEnd("Yambol");
+}
 
-	////2: Setting expresses
-	//sl.setExpressToNode(sl.getNodeWithValue("Sofia"), sl.getNodeWithValue("Dimitrovgrad"));
-	//sl.setExpressToNode(sl.getNodeWithValue("Pazardzhik"), sl.getNodeWithValue("Dimitrovgrad"));
-	//sl.setExpressToNode(sl.getNodeWithValue("Dimitrovgrad"), sl.getNodeWithValue("NovaZagora"));
-	//sl.setExpressToNode(sl.getNodeWithValue("StaraZagora"), sl.getNodeWithValue("Yambol"));
-	//sl.setExpressToNode(sl.getNodeWithValue("NovaZagora"), sl.getNodeWithValue("Burgas"));
+void initiateCitiesThatMustBeVisitedThirdOption(LinkedList<std::string>& wantToVisit) {
+	wantToVisit.insertEnd("Plovdiv");
+	wantToVisit.insertEnd("StaraZagora");
+	wantToVisit.insertEnd("Yambol");
+}
 
-	////2.1: Initiating a list of the cities we want to visit
-	//LinkedList<std::string> wantToVisit = LinkedList<std::string>();
-	//wantToVisit.insertEnd("Plovdiv");
-	//wantToVisit.insertEnd("StaraZagora");
-	//wantToVisit.insertEnd("Yambol");
-	////Expected: Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, StaraZagora, Yambol, Karnobat, Burgas
+void initiateCitiesThatMustBeVisitedFourthOption(LinkedList<std::string>& wantToVisit) {
+	wantToVisit.insertEnd("Dimitrovgrad");
+	wantToVisit.insertEnd("NovaZagora");
+	wantToVisit.insertEnd("Karnobat");
+}
 
-	////2.2: Initiating a list of the cities we want to visit
-	//LinkedList<std::string> wantToVisit = LinkedList<std::string>();
-	//wantToVisit.insertEnd("Dimitrovgrad");
-	//wantToVisit.insertEnd("NovaZagora");
-	//wantToVisit.insertEnd("Karnobat");
-	////Expected: Sofia, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
 
-	LinkedList<std::string>* result = sl.createRoute(&wantToVisit);
-	result->printList();
+int main()
+{
+	//1. Initiating the cities
+	SkipList<std::string> sl = SkipList<std::string>();
+	initializeCitiesInSkipList(sl);
+
+	//2. Setting expresses
+	setExpresses(sl);
+
+	//3. Initiating a list of the cities we want to visit
+	LinkedList<std::string> wantToVisit = LinkedList<std::string>();
+	initiateCitiesThatMustBeVisited(wantToVisit);
+
+	//4. Creating the route
+	LinkedList<std::string> result = sl.createRoute(&wantToVisit);
+	result.printList();
 
 
 }
-
+//First express and first cities option expected output:
+//Sofia, Plovdiv, Dimitrovgrad, StaraZagora, Yambol, Karnobat, Burgas,
+//First express and second cities option expected output: 
+//Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
+//Second express option and third cities expected output: 
+//Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, StaraZagora, Yambol, Karnobat, Burgas
+//Second express and fourth cities option expected output: 
+//Sofia, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
