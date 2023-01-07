@@ -4,7 +4,6 @@
 
 int main()
 {
-	std::cout << "Hello World!\n";
 	//Initiating the cities
 	SkipList<std::string> sl = SkipList<std::string>();
 	sl.insertEnd("Sofia");
@@ -38,30 +37,30 @@ int main()
 	//wantToVisit.insertEnd("Yambol");
 	////Expected: Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
 
-	////2: Setting expresses
-	//sl.setExpressToNode(sl.getNodeWithValue("Sofia"), sl.getNodeWithValue("Dimitrovgrad"));
-	//sl.setExpressToNode(sl.getNodeWithValue("Pazardzhik"), sl.getNodeWithValue("Dimitrovgrad"));
-	//sl.setExpressToNode(sl.getNodeWithValue("Dimitrovgrad"), sl.getNodeWithValue("NovaZagora"));
-	//sl.setExpressToNode(sl.getNodeWithValue("StaraZagora"), sl.getNodeWithValue("Yambol"));
-	//sl.setExpressToNode(sl.getNodeWithValue("NovaZagora"), sl.getNodeWithValue("Burgas"));
+	//////2: Setting expresses
+	////sl.setExpressToNode(sl.getNodeWithValue("Sofia"), sl.getNodeWithValue("Dimitrovgrad"));
+	////sl.setExpressToNode(sl.getNodeWithValue("Pazardzhik"), sl.getNodeWithValue("Dimitrovgrad"));
+	////sl.setExpressToNode(sl.getNodeWithValue("Dimitrovgrad"), sl.getNodeWithValue("NovaZagora"));
+	////sl.setExpressToNode(sl.getNodeWithValue("StaraZagora"), sl.getNodeWithValue("Yambol"));
+	////sl.setExpressToNode(sl.getNodeWithValue("NovaZagora"), sl.getNodeWithValue("Burgas"));
 
-	////2.1: Initiating a list of the cities we want to visit
-	//LinkedList<std::string> wantToVisit = LinkedList<std::string>();
-	//wantToVisit.insertEnd("Plovdiv");
-	//wantToVisit.insertEnd("StaraZagora");
-	//wantToVisit.insertEnd("Yambol");
-	////Expected: Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, StaraZagora, Yambol, Karnobat, Burgas
+	//////2.1: Initiating a list of the cities we want to visit
+	////LinkedList<std::string> wantToVisit = LinkedList<std::string>();
+	////wantToVisit.insertEnd("Plovdiv");
+	////wantToVisit.insertEnd("StaraZagora");
+	////wantToVisit.insertEnd("Yambol");
+	//////Expected: Sofia, Pazardzhik, Plovdiv, Dimitrovgrad, StaraZagora, Yambol, Karnobat, Burgas
 
-	////2.2: Initiating a list of the cities we want to visit
-	//LinkedList<std::string> wantToVisit = LinkedList<std::string>();
-	//wantToVisit.insertEnd("Dimitrovgrad");
-	//wantToVisit.insertEnd("NovaZagora");
-	//wantToVisit.insertEnd("Karnobat");
-	////Expected: Sofia, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
+	//////2.2: Initiating a list of the cities we want to visit
+	////LinkedList<std::string> wantToVisit = LinkedList<std::string>();
+	////wantToVisit.insertEnd("Dimitrovgrad");
+	////wantToVisit.insertEnd("NovaZagora");
+	////wantToVisit.insertEnd("Karnobat");
+	//////Expected: Sofia, Dimitrovgrad, NovaZagora, Yambol, Karnobat, Burgas
 
-	LinkedList<std::string>* result = sl.createRoute(&wantToVisit);
-	result->printList();
+	LinkedList<std::string> result = sl.createRoute(&wantToVisit);
+	result.printList();
 
-
+	return 0;
 }
 
