@@ -23,8 +23,39 @@ private:
 public:
 	SkipList() : head(nullptr) {}
 
-	SkipList(SkipList&& other) : head(other.head) {
+	//copy constructor
+	SkipList(const SkipList<T>& other) {
+		head = nullptr;
+		Node<T>* currentNode = other.head;
+		while (currentNode != nullptr) {
+			insertEnd(currentNode->data);
+			currentNode = currentNode->next;
+		}
+	}
+
+	//move constructor
+	SkipList(SkipList<T>&& other) : head(other.head) {
 		other.head = nullptr;
+	}
+
+	SkipList<T>& operator=(SkipList<T> other) {
+		std::swap(head, other.head);
+		return *this;
+	}
+
+	SkipList<T>& operator=(SkipList<T>&& other) {
+		head = other.head;
+		other.head = nullptr;
+		return *this;
+	}
+
+	~SkipList() {
+		Node<T>* currentNode = head;
+		while (currentNode != nullptr) {
+			Node<T>* nextNode = currentNode->next;
+			delete currentNode;
+			currentNode = nextNode;
+		}
 	}
 
 	void insertFront(T data) {
@@ -141,7 +172,7 @@ public:
 	//to be in the order they are in the original list of cities
 	//as the skip list is implemented as a forward list and we 
 	//accept that we don't want to go back the road only forward
-	LinkedList<T>* createRoute(LinkedList<T>* wantToVisit) {
+	LinkedList<T> createRoute(LinkedList<T>* wantToVisit) {
 		Node<T>* currentCity = head;
 		LinkedList<T> resultRoute = LinkedList<T>();
 		SimpleNode<T>* currentCityFromList = (*wantToVisit).getFirstElement();
@@ -173,7 +204,7 @@ public:
 			currentCity = currentCity->next;
 		}
 
-		return &resultRoute;
+		return resultRoute;
 	}
 
 };

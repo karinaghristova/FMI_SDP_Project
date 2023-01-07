@@ -16,10 +16,44 @@ class LinkedList {
 private:
 	SimpleNode<T>* head;
 public:
+	//default constructor
 	LinkedList() :head(nullptr) {}
-	LinkedList(LinkedList&& other) : head(other.head) {
+
+	//copy constructor
+	LinkedList(const LinkedList<T>& other) {
+		head = nullptr;
+		SimpleNode<T>* currentNode = other.head;
+		while (currentNode != nullptr) {
+			insertEnd(currentNode->data);
+			currentNode = currentNode->next;
+		}
+	}
+
+	//move constructor
+	LinkedList(LinkedList<T>&& other) : head(other.head) {
 		other.head = nullptr;
 	}
+
+	LinkedList<T>& operator=(LinkedList<T> other) {
+		std::swap(head, other.head);
+		return *this;
+	}
+
+	LinkedList<T>& operator=(LinkedList<T>&& other) {
+		head = other.head;
+		other.head = nullptr;
+		return *this;
+	}
+
+	~LinkedList() {
+		SimpleNode<T>* currentNode = head;
+		while (currentNode != nullptr) {
+			SimpleNode<T>* nextNode = currentNode->next;
+			delete currentNode;
+			currentNode = nextNode;
+		}
+	}
+
 	void insertFront(T data) {
 		SimpleNode<T>* newNode = new SimpleNode<T>(data);
 		newNode->next = head;
@@ -69,6 +103,18 @@ public:
 
 	SimpleNode<T>* getFirstElement() {
 		return head;
+	}
+
+	SimpleNode<T>* getElementWithValue(T value) {
+		//if (head == nullptr) return nullptr;
+		SimpleNode<T>* current = head;
+		while (current != nullptr){
+			if (current->data == value)
+				return current;
+			current = current->next;
+		}
+
+		return current;
 	}
 
 	void printList() {
