@@ -130,8 +130,6 @@
     <ClCompile Include="82133_Project.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="box.h" />
-    <ClInclude Include="graph.h" />
     <ClInclude Include="linked_list.h" />
     <ClInclude Include="skip_list.h" />
   </ItemGroup>
