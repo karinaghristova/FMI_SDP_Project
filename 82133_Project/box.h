@@ -18,6 +18,29 @@ private:
 
 	Box(std::string name) : name(name) {}
 
+
+	void addSouvenir(std::string souvenirName) {
+		Souvenir souvenir = Souvenir(souvenirName);
+		souvenirs.insertEnd(souvenir);
+	}
+
+	void addBox(std::string boxName, LinkedList<Box> allBoxes) {
+		//If the box is not present we add it to the list of boxes
+		if (!allBoxes.checkForElementWithValue(boxName)) {
+			Box newBox = Box(boxName);
+			allBoxes.insertEnd(newBox);
+		}
+
+		innerBoxes.insertEnd(allBoxes.getElementWithValue(boxName));
+	}
+
+	bool hasSouvenirs() {
+		return souvenirs.getFirstElement() != nullptr;
+	}
+
+	bool hasBoxes() {
+		return innerBoxes.getFirstElement() != nullptr;
+	}
 };
 
 #endif // !BOX

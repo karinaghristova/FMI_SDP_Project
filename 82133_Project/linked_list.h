@@ -106,7 +106,6 @@ public:
 	}
 
 	SimpleNode<T>* getElementWithValue(T value) {
-		//if (head == nullptr) return nullptr;
 		SimpleNode<T>* current = head;
 		while (current != nullptr){
 			if (current->data == value)
@@ -115,6 +114,17 @@ public:
 		}
 
 		return current;
+	}
+
+	bool checkForElementWithValue(T value) {
+		SimpleNode<T>* current = head;
+		while (current != nullptr) {
+			if (current->data == value)
+				return true;
+			current = current->next;
+		}
+
+		return current != nullptr;
 	}
 
 	void printList() {
