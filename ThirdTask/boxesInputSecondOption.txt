@@ -1,0 +1,20 @@
+19
+SofiaBox 2 Mirror Orange 3 Photos Bottles Figures
+Photos 0 2 Art Me
+Art 0 2 A B
+A 0 0
+B 0 0
+Me 0 1 You
+You 0 1 He
+He 1 She 0
+Bottles 0 1 OneBottle
+OneBottle 1 TheBottle 1 Surprise
+Surprise 1 SurpriseBottle 0
+Figures 0 2 Church City
+Church 0 0
+City 2 Sofia Alex 0
+PlovdivBox 0 2 Postcards Dishes
+Postcards 2 Hello World 0
+Dishes 0 2 Cups Plates
+Cups 2 Glass Plastic 0
+Plates 0 0
