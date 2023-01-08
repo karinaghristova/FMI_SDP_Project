@@ -141,8 +141,14 @@ BoxList createBoxList(std::string fileName) {
 
 void runThirdTask() {
 	BoxList boxList = createBoxList("boxesInput.txt");
+	std::cout << "Initial boxes count: " << boxList.getNumberOfBoxes() << std::endl;
 	std::cout << boxList.printList() << std::endl;
-	std::cout << boxList.getNumberOfBoxes() << std::endl;
+
+	std::cout << "------Optimizing boxes------\n" << std::endl;
+
+	boxList.removeAllUnneccessaryBoxes();
+	std::cout << "Boxes count after optimization: " << boxList.getNumberOfBoxes() << std::endl;
+	std::cout << boxList.printList() << std::endl;
 }
 
 int main()
@@ -150,7 +156,7 @@ int main()
 	//First task should read from the input
 	std::cout << "First task:\n";
 	runFirstTask();
-	std::cout << "Third task:\n";
+	std::cout << "\nThird task:\n";
 	runThirdTask();
 	
 	return 0;
