@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FirstTask.cpp">
+    <ClCompile Include="ThirdTask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="linked_list.h">
+    <ClInclude Include="box_list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="skip_list.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="boxesInput.txt" />
   </ItemGroup>
 </Project>
