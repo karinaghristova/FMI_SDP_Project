@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 struct BoxNode {
 	std::string name;
 	std::vector<std::string> souvenirs;
@@ -80,9 +81,24 @@ public:
 			current = current->next;
 		current->next = new BoxNode(boxName);
 		listElements++;
-	 }
+	}
+
+	void removeNodeFromBoxesOfNode(BoxNode* nodeToRemove, BoxNode* node) {
+		std::vector<BoxNode*>::iterator position = std::find((*node).boxes.begin(), (*node).boxes.end(), nodeToRemove);
+		if (position != (*node).boxes.end())
+			(*node).boxes.erase(position);
+	}
+
+	void removeNodeFromEveryBoxWhereItIsInnerBox(BoxNode* nodeToRemove) {
+		BoxNode* current = head;
+		while (current != nullptr) {
+			removeNodeFromBoxesOfNode(nodeToRemove, current);
+			current = current->next;
+		}
+	}
 
 	void deleteBoxNode(BoxNode* nodeToDelete) {
+		//TODO remove from all nodes where it is an inner box
 		if (head == nullptr || nodeToDelete == nullptr)
 			return;
 		BoxNode* temp = head;
@@ -90,6 +106,7 @@ public:
 			head = head->next;
 			temp->souvenirs.clear();
 			temp->boxes.clear();
+			removeNodeFromEveryBoxWhereItIsInnerBox(nodeToDelete);
 			delete temp;
 			listElements--;
 		}
@@ -99,7 +116,32 @@ public:
 			temp->next = nodeToDelete->next;
 			nodeToDelete->souvenirs.clear();
 			nodeToDelete->boxes.clear();
+			removeNodeFromEveryBoxWhereItIsInnerBox(nodeToDelete);
 			delete nodeToDelete;
+			listElements--;
+		}
+	}
+
+	BoxNode* findPreviousNode(BoxNode* node) {
+		if (node == head) return nullptr;
+		BoxNode* current = head;
+		while (current->next != node)
+			current = current->next;
+		return current;
+	}
+
+	void replaceNodeWithInnerChild(BoxNode* nodeToReplace, BoxNode* parentNode) {
+		if (head == nullptr || nodeToReplace == nullptr || parentNode == nullptr)
+			return;
+		if (head == nodeToReplace) {
+			head = nodeToReplace->next;
+		}
+		else {
+			BoxNode* previous = findPreviousNode(nodeToReplace);
+			previous->next = nodeToReplace->next;
+			std::replace((*parentNode).boxes.begin(), (*parentNode).boxes.end(),
+				nodeToReplace, (*nodeToReplace).boxes[0]);
+			delete nodeToReplace;
 			listElements--;
 		}
 	}
@@ -148,6 +190,36 @@ public:
 		return ((*box).souvenirs.size() == 0 && (*box).boxes.size() == 1);
 	}
 
+	bool canBeDeleted(BoxNode* box) {
+		return ((*box).souvenirs.size() == 0 && (*box).boxes.size() == 0);
+	}
+
+	void removeUnneccessaryBoxesFromNode(BoxNode* currentNode) {
+		size_t numberOfInnerBoxes = (*currentNode).boxes.size();
+		//Go through all the inner boxes
+		for (size_t i = 0; i < numberOfInnerBoxes; i++) {
+			BoxNode* currentInnerBox = (*currentNode).boxes[i];
+			//First get to the lowest level of inner boxes
+			removeUnneccessaryBoxesFromNode(currentInnerBox);
+
+			if (canBeDeleted(currentInnerBox)) {
+				deleteBoxNode(currentInnerBox);
+			}
+
+			if (canBeReplacedWithInnerBox(currentInnerBox)) {
+				replaceNodeWithInnerChild(currentInnerBox, currentNode);
+			}
+		}
+	}
+
+	void removeAllUnneccessaryBoxes() {
+		BoxNode* currentNode = head;
+		while (currentNode != nullptr) {
+			removeUnneccessaryBoxesFromNode(currentNode);
+			currentNode = currentNode->next;
+		}
+	}
+
 	size_t getNumberOfBoxes() {
 		return listElements;
 	}
@@ -163,7 +235,7 @@ public:
 			result += "\n	Inner boxes: ";
 			for (size_t j = 0; j < (*current).boxes.size(); j++)
 				result += (*current).boxes[j]->name + " | ";
-			
+
 			result += "\n";
 			current = current->next;
 		}
