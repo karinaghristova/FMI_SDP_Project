@@ -61,9 +61,17 @@ void runFirstTask() {
 	//1. Initiating the cities
 	SkipList<std::string> sl = SkipList<std::string>();
 	initializeCitiesInSkipList(sl);
+	std::cout << "All train stations:\n";
+	sl.printList();
+
+	std::cout << "\n------------------\n\n";
 
 	//2. Setting expresses
 	setExpresses(sl);
+	std::cout << "Express train stations only:\n";
+	sl.printWithExpressOnly();
+
+	std::cout << "\n------------------\n\n";
 
 	//3. Initiating a list of the cities we want to visit
 	LinkedList<std::string> wantToVisit = LinkedList<std::string>();
@@ -71,6 +79,7 @@ void runFirstTask() {
 
 	//4. Creating the route
 	LinkedList<std::string> result = sl.createRoute(&wantToVisit);
+	std::cout << "Calculated route:\n";
 	result.printList();
 }
 
