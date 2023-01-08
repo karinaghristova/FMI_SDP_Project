@@ -1,0 +1,13 @@
+9
+Sofia Pazardzhik Plovdiv Dimitrovgrad StaraZagora NovaZagora Yambol Karnobat Burgas
+Sofia Dimitrovgrad
+Pazardzhik Dimitrovgrad
+Dimitrovgrad NovaZagora
+StaraZagora Yambol
+NovaZagora Burgas
+exit
+Plovdiv StaraZagora Yambol
+----------------------------------------------------
+Expected output :
+Sofia->Pazardzhik->Plovdiv->Dimitrovgrad->StaraZagora->Yambol->Karnobat->Burgas->
+----------------------------------------------------
