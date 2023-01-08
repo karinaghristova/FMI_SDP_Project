@@ -26,5 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxesInput.txt" />
+    <Text Include="boxesInputSecondOption.txt" />
   </ItemGroup>
 </Project>

@@ -77,6 +77,8 @@ void runThirdTask(std::string fileName) {
 int main()
 {
 	runThirdTask("boxesInput.txt");
+	std::cout << "Try with another file.\n";
+	runThirdTask("boxesInputSecondOption.txt");
 	return 0;
 }
 

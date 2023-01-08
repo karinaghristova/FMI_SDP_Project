@@ -204,10 +204,14 @@ public:
 
 			if (canBeDeleted(currentInnerBox)) {
 				deleteBoxNode(currentInnerBox);
+				return;
 			}
 
 			if (canBeReplacedWithInnerBox(currentInnerBox)) {
 				replaceNodeWithInnerChild(currentInnerBox, currentNode);
+				//Decreasing the count of i so that we can check if we 
+				//can further replace and delete box
+				i--; 
 			}
 		}
 	}
