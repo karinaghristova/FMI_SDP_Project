@@ -105,16 +105,16 @@ public:
 		return head;
 	}
 
-	SimpleNode<T>* getElementWithValue(T value) {
-		SimpleNode<T>* current = head;
-		while (current != nullptr){
-			if (current->data == value)
-				return current;
-			current = current->next;
-		}
+	//T getElementWithValue(T value) {
+	//	SimpleNode<T>* current = head;
+	//	while (current != nullptr){
+	//		if (current->data == value)
+	//			return current;
+	//		current = current->next;
+	//	}
 
-		return current;
-	}
+	//	return current->data;
+	//}
 
 	bool checkForElementWithValue(T value) {
 		SimpleNode<T>* current = head;
