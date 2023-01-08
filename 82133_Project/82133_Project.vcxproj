@@ -134,6 +134,12 @@
     <ClInclude Include="linked_list.h" />
     <ClInclude Include="skip_list.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="fourthInput.txt" />
+    <Text Include="firstInput.txt" />
+    <Text Include="secondInput.txt" />
+    <Text Include="thirdInput.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
