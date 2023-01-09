@@ -27,10 +27,4 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="firstInput.txt" />
-    <Text Include="fourthInput.txt" />
-    <Text Include="secondInput.txt" />
-    <Text Include="thirdInput.txt" />
-  </ItemGroup>
 </Project>

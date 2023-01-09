@@ -38,7 +38,7 @@ void runFirstTask() {
 	std::cout << "Please enter the names of " << numberOfCities << " cities separated by whitespaces in one line.\n";
 	std::cout << "------------------------------------------------------\n";
 	std::string city;
-	for (size_t i = 0; i < numberOfCities; i++)	{
+	for (size_t i = 0; i < numberOfCities; i++) {
 		std::cin >> city;
 		sl.insertEnd(city);
 	}
@@ -58,7 +58,7 @@ void runFirstTask() {
 		std::cin >> firstCity;
 		std::string firstCityLowercase = firstCity;
 		std::transform(firstCityLowercase.begin(), firstCityLowercase.end(),
-						firstCityLowercase.begin(), ::tolower);
+			firstCityLowercase.begin(), ::tolower);
 		if (firstCityLowercase == "exit")
 			break;
 		std::cin >> secondCity;
