@@ -241,8 +241,6 @@ void runSecondTask(std::string fileName) {
 			travelPath.push_back("Railstation");
 		printVector(travelPath);
 	}
-
-
 }
 
 int main() {
