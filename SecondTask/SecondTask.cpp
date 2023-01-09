@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <fstream>
 
 struct Edge {
 	std::string vertexName;
@@ -160,35 +161,65 @@ std::vector<std::string> travel(size_t timeLimit, std::string currentVertexName,
 	return travelPath;
 }
 
-int main() {
+std::vector<std::string> splitLine(std::string line) {
+	std::vector<std::string> words;
+	std::string word;
+
+	size_t pos = 0;
+	while ((pos = line.find(' ')) != std::string::npos) {
+		word = line.substr(0, pos);
+		line.erase(0, pos + 1);
+		words.push_back(word);
+	}
+	words.push_back(line);
+
+	return words;
+}
+
+void runSecondTask(std::string fileName) {
 	//1. Create adjacency list of graph
 	std::unordered_map<std::string, std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>> graph;
-
-	//2. Read input
-	std::cout << "Please enter one number for the objects and the amount of relationships between them:\n";
-	std::cout << "------------------------------------------------------\n";
-	int vertexCount, edgesCount;
-	std::cin >> vertexCount;
-	std::cin >> edgesCount;
-	std::cout << "------------------------------------------------------\n";
-
-	std::cout << "Please enter information for every path between objects in the following format: {Start point} {End point} {Time}:\n";
-	std::cout << "------------------------------------------------------\n";
-	std::string vertex1, vertex2;
-	int weight;
-	for (size_t i = 0; i < edgesCount; i++) {
-		std::cin >> vertex1 >> vertex2 >> weight;
-		graph[vertex1].push(Edge(vertex2, weight));
-		graph[vertex2].push(Edge(vertex1, weight));
-	}
-	std::cout << "------------------------------------------------------\n";
-	std::cout << "Please enter a number for the time limit:\n";
-	std::cout << "------------------------------------------------------\n";
 	int timeLimit;
-	std::cin >> timeLimit;
-	std::cout << "------------------------------------------------------\n";
 
-	//3. Travel around
+	//2. Open file to read input
+	std::ifstream file(fileName);
+
+	//3. Read actual input
+	if (file.is_open()) {
+		std::string line;
+
+		getline(file, line);
+		std::vector<std::string> numbersString = splitLine(line);
+		int vertexCount, edgesCount;
+
+		vertexCount = std::stoi(numbersString[0]);
+		edgesCount = std::stoi(numbersString[1]);
+
+		std::string vertex1, vertex2;
+		int weight;
+		for (size_t i = 0; i < edgesCount; i++) {
+			getline(file, line);
+			std::vector<std::string> words = splitLine(line);
+			vertex1 = words[0];
+			vertex2 = words[1];
+			weight = std::stoi(words[2]);
+
+			for (size_t i = 0; i < edgesCount; i++) {
+				graph[vertex1].push(Edge(vertex2, weight));
+				graph[vertex2].push(Edge(vertex1, weight));
+			}
+		}
+
+		getline(file, line);
+		timeLimit = std::stoi(line);
+
+		file.close();
+	}
+	else {
+		std::cerr << "Coul not open the file." << std::endl;
+	}
+
+	//4. Travel around
 	std::cout << "The places you could visit based on the time you have:\n";
 	std::cout << "------------------------------------------------------\n";
 	std::vector<std::string> travelPath;
@@ -211,7 +242,17 @@ int main() {
 		printVector(travelPath);
 	}
 
+
+}
+
+int main() {
+
+	runSecondTask("input.txt");
+
 	return 0;
 
 }
 
+//input2.txt: Time is exactly as the time it takes to go to the nearest vertex
+//input3.txt: Time is not enough to even leave the railstation
+//input4.txt: Time is exactly as the time it takes to go to the nearest vertex and back
