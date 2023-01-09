@@ -176,7 +176,7 @@ std::vector<std::string> splitLine(std::string line) {
 	return words;
 }
 
-void runSecondTask(std::string fileName) {
+std::vector<std::string> goSightseeing(std::string fileName) {
 	//1. Create adjacency list of graph
 	std::unordered_map<std::string, std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>> graph;
 	int timeLimit;
@@ -220,27 +220,32 @@ void runSecondTask(std::string fileName) {
 	}
 
 	//4. Travel around
-	std::cout << "The places you could visit based on the time you have:\n";
-	std::cout << "------------------------------------------------------\n";
 	std::vector<std::string> travelPath;
 	travelPath.push_back("Railstation");
 	changeVertexToVisited("Railstation", graph);
 
 	//First case we cannot visit any place
 	if ((*graph.cbegin()).second.top().weight >= timeLimit)
-		printVector(travelPath);
+		return travelPath;
 	//Second case we have time to visit exactly one place
 	else if ((*graph.cbegin()).second.top().weight * 2 >= timeLimit) {
 		travelPath.push_back((*graph.cbegin()).second.top().vertexName);
 		travelPath.push_back("Railstation");
-		printVector(travelPath);
+		return travelPath;
 	}
 	else {
 		std::vector<std::string> travelPath = travel(timeLimit, "Railstation", travelPath, graph);
 		if (travelPath.size() != 1)
 			travelPath.push_back("Railstation");
-		printVector(travelPath);
+		return travelPath;
 	}
+}
+
+void runSecondTask(std::string fileName) {
+	std::vector<std::string> travelPath = goSightseeing(fileName);
+	std::cout << "The places you could visit based on the time you have:\n";
+	std::cout << "------------------------------------------------------\n";
+	printVector(travelPath);
 }
 
 int main() {
