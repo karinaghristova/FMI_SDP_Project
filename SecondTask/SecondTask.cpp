@@ -153,7 +153,7 @@ std::vector<std::string> travel(size_t timeLimit, std::string currentVertexName,
 		findShortestPathBetween("Railstation", closestNeighbour.vertexName, graph);
 
 	int timeDiff = timeLimit - timeToVisitAndGoBack;
-	if (timeDiff > 0) {
+	if (timeDiff >= 0) {
 		changeVertexToVisited(nameOfClosestNeighbour, graph);
 		travelPath = travel(timeLimit - closestNeighbour.weight, nameOfClosestNeighbour, travelPath, graph);
 	}
